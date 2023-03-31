@@ -15,7 +15,7 @@ required infrastructure.
 
 Perform these following steps on three etcd nodes:
 
-### Install and Configure Keepalived
+### Install and Configure Keepalived (Each etcd node, or on dedicated nodes)
 
 Keepalived manages a single virtual IP address between multiple nodes. This will be the IP address of our LB. If the active LB node becomes unavailable, 
 the IP address will become active on another.
@@ -90,7 +90,7 @@ sudo chown -R keepalived_script:keepalived_script /etc/keepalived/
 sudo chmod -R 664 /etc/keepalived/
 ```
 
-### Install and Configure HAProxy
+### Install and Configure HAProxy (Each etcd node, or on dedicated nodes)
 
 1. Install HAProxy
 
@@ -154,7 +154,7 @@ defaults
 	errorfile 504         /etc/haproxy/errors/504.http
 
 frontend etcd-lb
-    bind 192.168.50.2:2379
+    bind ${LB_IP}:2379
     mode tcp
     option tcplog
     default_backend etcd-server
@@ -162,9 +162,9 @@ frontend etcd-lb
 backend etcd-server
     mode tcp
     balance roundrobin
-      server etcd1 192.168.140.1:2379 check
-      server etcd2 192.168.140.2:2379 check
-      server etcd3 192.168.140.3:2379 check
+      server etcd1 ${ETCD1_IP}:2379 check
+      server etcd2 ${ETCD2_IP}:2379 check
+      server etcd3 ${ETCD3_IP}:2379 check
 EOF
 ```
 
