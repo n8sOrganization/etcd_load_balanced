@@ -200,7 +200,7 @@ LB IP address for the IP. Create a single cert/key pair only and copy to the dir
 Unlike in my previous post, where I used the same cert/key pair for client-to-node and peer-to-peer TLS, we'll use the LB cert/key pair for 
 client-to-node TLS. We'll leave the peer-to-peer cert/key pair intact as the etcd nodes will continue to neogtiate TLS directly.
 
-Your etcd TLS config will look something like the following. Be sure to update it on each eetcd node. Restart etcd one node at a time, allowing for it 
+Your etcd TLS config will look something like the following. Be sure to update it on each etcd node. Restart etcd one node at a time, allowing for it 
 to come online before procedding with the next. 
 
 Be aware that once you've completed this task, your kube-apiservers will not be able to communicate with the etcd cluster until their config has 
