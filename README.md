@@ -194,9 +194,8 @@ sudo systemctl status haproxy
 ## Conifugre etcd Client Certificate for LB
 
 Because our kube-apiserver etcd client will be pointed to the LB, we need our etcd client TLS configured with certs that match the LB's IP. Follow 
-[steps 1 - 6 here](https://github.com/n8sOrganization/Convert_K8s_Cluster_External_etcd/blob/main/README.md#create-external-etcd-cluster-certs) 
-
-Create a single cert/key pair only and copy to the directory storing those on each etcd node.
+[steps 1 - 6 here](https://github.com/n8sOrganization/Convert_K8s_Cluster_External_etcd/blob/main/README.md#create-external-etcd-cluster-certs). Use the 
+LB IP address for the IP. Create a single cert/key pair only and copy to the directory storing those on each etcd node. Set the file permisssions appropriately.
 
 Unlike in my previous post, where I used the same cert/key pair for client-to-node and peer-to-peer TLS, we'll use the LB cert/key pair for 
 client-to-node TLS. We'll leave the peer-to-peer cert/key pair intact as the etcd nodes will continue to neogtiate TLS directly.
