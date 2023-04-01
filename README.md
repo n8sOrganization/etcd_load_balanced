@@ -138,7 +138,7 @@ global
         ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
 
 defaults
-	log	                  global
+	log	              global
 	option	              httplog
 	option	              dontlognull
         timeout connect       5000
@@ -184,7 +184,7 @@ sudo systemctl enable keepalived --now
 ```
 
 ```console
-sudo systemctl status haproxy
+sudo systemctl status keepalived
 ```
 
 ```console
