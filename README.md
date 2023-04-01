@@ -49,11 +49,11 @@ Leave below priority as 101 on the first node. On subsequent nodes, change prior
 ```console
 cat <<EOF | sudo tee -a /etc/keepalived/keepalived.conf
 global_defs {
-    router_id LVS_DEVEL
+    router_id LVS_ETCD
     enable_script_security
     max_auto_priority 100
 }
-vrrp_script check_etcd {
+vrrp_script check_haproxy {
   script "/usr/bin/pgrep haproxy"
   interval 3
   weight -2
@@ -62,9 +62,8 @@ vrrp_script check_etcd {
 }
 
 vrrp_instance VI_1 {
-    state MASTER
     interface ${INTERFACE}
-    virtual_router_id 51
+    virtual_router_id 53
     priority 101  #<<< Change this to 100 for subsequent nodes
     authentication {
         auth_type PASS
@@ -74,7 +73,7 @@ vrrp_instance VI_1 {
         ${LB_IP}/${LB_IP_MASK}
     }
     track_script {
-        check_etcd
+        check_haproxy
     }
 }
 EOF
